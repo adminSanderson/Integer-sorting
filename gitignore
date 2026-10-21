@@ -1,0 +1,8 @@
+build/
+*.exe
+*.o
+results.csv
+.vscode/
+*.json
+results.csv
+results.txt
