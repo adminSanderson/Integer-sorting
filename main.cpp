@@ -22,7 +22,7 @@ struct Algo {
 // Сюда капитан добавляет алгоритмы участников
 vector<Algo> algos = {
     {"bubble_captain", bubblesortbycaptain},
-    // {"quick_ivan", quicksortbyivan},
+    {"tim_vorobyev", timsortbyvorobyev},
 };
 
 // Один результат замера
