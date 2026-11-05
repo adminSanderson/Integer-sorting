@@ -95,7 +95,7 @@ void selectionsortbyivan(vector<int>& a) {
 }
 ```
 
-Готовый пример смотри в `bubble_sort_by_captain.cpp` и `quick_sort_by_captain.cpp`.
+Готовый пример смотри в `bubble_sort_by_captain.cpp`.
 
 ---
 

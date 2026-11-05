@@ -4,7 +4,10 @@
 #include <chrono>
 #include <filesystem>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
+#include <limits>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -42,6 +45,10 @@ vector<Result> results;
 // Читаем числа из файла в вектор
 vector<int> readFile(const fs::path& path) {
     ifstream in(path);
+    if (!in) {
+        cerr << "Cannot open " << path << "\n";
+        return {};
+    }
     vector<int> v;
     int x;
     while (in >> x) v.push_back(x);
@@ -50,7 +57,9 @@ vector<int> readFile(const fs::path& path) {
 
 // Для русского Excel нужна запятая вместо точки
 string toExcel(double x) {
-    string s = to_string(x);
+    ostringstream ss;
+    ss << fixed << setprecision(3) << x;
+    string s = ss.str();
     replace(s.begin(), s.end(), '.', ',');
     return s;
 }
@@ -69,12 +78,33 @@ void startTraining() {
     cout << "Starting training...\n";
     results.clear();
 
-    // Идём по всем .txt файлам в папке data
-    for (auto& entry : fs::directory_iterator("data")) {
-        if (entry.path().extension() != ".txt") continue;
+    error_code ec;
+    if (!fs::is_directory("data", ec)) {
+        cout << "No data directory found. Create data/ with .txt files first.\n";
+        return;
+    }
 
-        string fileName = entry.path().filename().string();
-        vector<int> original = readFile(entry.path());
+    // Собираем все .txt файлы и сортируем имена,
+    // чтобы порядок вывода был одинаковым при каждом запуске
+    vector<fs::path> files;
+    fs::directory_iterator it("data", ec), end;
+    for (; !ec && it != end; it.increment(ec)) {
+        if (it->path().extension() == ".txt") files.push_back(it->path());
+    }
+    if (ec) {
+        cout << "Cannot read data directory: " << ec.message() << "\n";
+        return;
+    }
+    sort(files.begin(), files.end());
+    if (files.empty()) {
+        cout << "No .txt files in data/.\n";
+        return;
+    }
+
+    // Идём по всем .txt файлам в папке data
+    for (auto& path : files) {
+        string fileName = path.filename().string();
+        vector<int> original = readFile(path);
 
         // Правильный ответ, чтобы проверять алгоритмы
         vector<int> correct = original;
@@ -139,7 +169,16 @@ int main() {
 
     while (true) {
         printMenu();
-        cin >> choice;
+        if (!(cin >> choice)) {
+            if (cin.eof()) {
+                cout << "\nExiting...\n";
+                return 0;
+            }
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid choice. Please enter a number.\n";
+            continue;
+        }
 
         if (choice == 1) {
             startTraining();
