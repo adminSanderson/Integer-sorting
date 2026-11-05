@@ -1,8 +1,7 @@
 build/
 *.exe
 *.o
-results.csv
-.vscode/
-*.json
+sorting
 results.csv
 results.txt
+.vscode/
