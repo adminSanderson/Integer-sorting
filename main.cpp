@@ -26,6 +26,7 @@ struct Algo {
 vector<Algo> algos = {
     {"bubble_captain", bubblesortbycaptain},
     {"tim_vorobyev", timsortbyvorobyev},
+    {"heap_sarkisyan", heapsortbysarkisyan},
 };
 
 // Один результат замера
