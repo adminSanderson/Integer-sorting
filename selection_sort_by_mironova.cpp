@@ -3,7 +3,7 @@
 using namespace std;
 
 // Сортировка выбором по возрастанию
-void selectionsortbyanna(vector<int>& a) {
+void selectionsortbymironova(vector<int>& a) {
     int n = a.size();
     for (int i = 0; i < n - 1; i++) {
         int minIndex = i;
