@@ -22,11 +22,11 @@ struct Algo {
     void (*fn)(vector<int>&);
 };
 
-// Сюда капитан добавляет алгоритмы участников
 vector<Algo> algos = {
     {"bubble_captain", bubblesortbycaptain},
     {"tim_vorobyev", timsortbyvorobyev},
     {"heap_sarkisyan", heapsortbysarkisyan},
+    {"selection_mironova", selectionsortbymironova},
 };
 
 // Один результат замера
