@@ -27,7 +27,9 @@ vector<Algo> algos = {
     {"tim_vorobyev", timsortbyvorobyev},
     {"heap_sarkisyan", heapsortbysarkisyan},
     {"selection_mironova", selectionsortbymironova},
+    {"radix_timoshenko", radixsortbytimoshenko},
 };
+
 
 // Один результат замера
 struct Result {
