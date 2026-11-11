@@ -10,3 +10,4 @@ void bubblesortbycaptain(std::vector<int>& a);
 void timsortbyvorobyev(std::vector<int>& a);
 void heapsortbysarkisyan(std::vector<int>& a);
 void selectionsortbymironova(std::vector<int>& a);
+void radixsortbytimoshenko(std::vector<int>& a);
